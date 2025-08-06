@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   res.send('🟢 Stripe backend is live and running!');
 });
 
+app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+  res.sendStatus(200);
+});
+
 app.post('/create-checkout-session', async (req, res) => {
   const { product, currency, success_url, cancel_url } = req.body;
 
@@ -41,3 +45,4 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
 app.listen(4242, () => console.log('Server running on http://localhost:4242'));
+
