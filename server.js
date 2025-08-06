@@ -7,6 +7,11 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 app.use(express.json());
 
+// A simple GET handler so visiting "/" shows a friendly message
+app.get('/', (req, res) => {
+  res.send('🟢 Stripe backend is live and running!');
+});
+
 app.post('/create-checkout-session', async (req, res) => {
   const { product, currency, success_url, cancel_url } = req.body;
 
@@ -33,5 +38,6 @@ app.post('/create-checkout-session', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 app.listen(4242, () => console.log('Server running on http://localhost:4242'));
